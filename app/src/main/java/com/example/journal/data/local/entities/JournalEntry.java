@@ -1,12 +1,17 @@
 package com.example.journal.data.local.entities;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @Entity(tableName = "journal_entries")
 public class JournalEntry {
+
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -52,5 +57,29 @@ public class JournalEntry {
     @NonNull
     public String getTitle() { return title; }
 
-    // ... other getters
+    @NonNull
+    public String getContent() { return content; }
+
+    @NonNull
+    public Mood getMood() { return mood; }
+
+    @NonNull
+    public Category getCategory() { return category; }
+
+    @NonNull
+    public Date getDate() { return date; }
+
+    // Helper Methods
+    public String getMoodAsString() {
+        return mood != null ? mood.toString() : "Unknown";
+    }
+
+    public String getCategoryAsString() {
+        return category != null ? category.toString() : "Unknown";
+    }
+
+    public String getDateAsString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        return sdf.format(date);
+    }
 }
